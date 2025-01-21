@@ -92,7 +92,7 @@ const goToPage = (page) => {
 					<tr>
 						<th class="p-4 w-36 text-sm font-normal leading-none" v-if="user.role_id !== 3">PATIENT</th>
 						<th class="p-4 w-36 text-sm font-normal leading-none" v-if="user.role_id !== 2">BHW</th>
-						<th class="p-4 w-48 text-sm font-normal leading-none">TITLE</th>
+						<th class="p-4 w-48 text-sm font-normal leading-none">PURPOSE</th>
 						<th class="p-4 text-sm font-normal leading-none max-w-[50%] truncate">DESCRIPTION</th>
 						<!-- Limited width -->
 						<th class="p-4 w-36 text-sm font-normal leading-none">DATETIME</th>

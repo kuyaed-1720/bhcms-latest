@@ -21,9 +21,9 @@ return new class extends Migration
             $table->date('birthday');
             $table->integer('age');
             $table->string('phone_number');
-            $table->string('province')->default('Albay');
-            $table->string('city')->default('Legazpi City');
-            $table->string('barangay')->default('Homapon');
+            // $table->string('province')->default('Albay');
+            // $table->string('city')->default('Legazpi City');
+            // $table->string('barangay')->default('Homapon');
             $table->foreignId('purok_id')->constrained('puroks');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
