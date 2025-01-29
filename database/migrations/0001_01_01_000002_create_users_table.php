@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->default(1)->constrained('roles');
+            $table->foreignId('role_id')->constrained('roles');
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
@@ -21,9 +21,6 @@ return new class extends Migration
             $table->date('birthday');
             $table->integer('age');
             $table->string('phone_number');
-            // $table->string('province')->default('Albay');
-            // $table->string('city')->default('Legazpi City');
-            // $table->string('barangay')->default('Homapon');
             $table->foreignId('purok_id')->constrained('puroks');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

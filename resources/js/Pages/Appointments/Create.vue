@@ -8,6 +8,7 @@ import { usePage } from '@inertiajs/vue3';
 const { props } = usePage();
 const health_workers = props.health_workers;
 const user = props.user;
+const users = props.users;
 const patients = props.patients;
 const role_id = props.user.role_id;
 
@@ -86,7 +87,7 @@ const canSelectPatient = computed(() => role_id !== 3);
 						>
 							<option value="" disabled>Select a health worker</option>
 							<option v-for="health_worker in health_workers" :key="health_worker.id" :value="health_worker.id">
-								{{ health_worker?.user?.first_name }}
+								{{ health_worker.first_name }}
 							</option>
 						</select>
 					</div>
@@ -101,7 +102,9 @@ const canSelectPatient = computed(() => role_id !== 3);
 							class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-300 dark:bg-gray-700"
 						>
 							<option value="" disabled>Select a patient</option>
-							<option v-for="patient in patients" :key="patient.id" :value="patient.id">{{ patient?.user?.first_name }}</option>
+							<option v-for="patient in users" :key="patient.id" :value="patient.id">
+								{{ patient.id }}
+							</option>
 						</select>
 					</div>
 
