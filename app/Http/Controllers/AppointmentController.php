@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\HealthWorker;
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
@@ -68,13 +69,14 @@ class AppointmentController extends Controller
                 'total' => $appointments->total(),
             ],
             'filters' => $request->only('status'),
-            'user' => $user,
+            'user' => $user
         ]);
     }
 
     public function create()
     {
         $user = Auth::user();
+        $users = User::all();
         $healthworkers = HealthWorker::all();
         $patients = Patient::all();
 
@@ -82,6 +84,7 @@ class AppointmentController extends Controller
             'user' => $user,
             'health_workers' => $healthworkers,
             'patients' => $patients,
+            'users' => $users
         ]);
     }
 }

@@ -8,7 +8,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// AJ
 Route::get('/', function () {
     return Inertia::render('Auth/Login');
 });

@@ -12,6 +12,7 @@ import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 
 const { props } = usePage();
 const puroks = props.puroks;
+const roles = props.roles;
 
 const form = useForm({
 	first_name: '',
@@ -22,6 +23,7 @@ const form = useForm({
 	age: '',
 	phone_number: '+63',
 	purok_id: null,
+	role_id: null,
 	email: '',
 	password: '',
 	password_confirmation: '',
@@ -92,33 +94,47 @@ const submit = () => {
 			</div>
 
 			<div class="mt-4">
-				<div class="mt-4">
-					<InputLabel for="phone_number" value="Phone Number" />
-					<TextInput id="phone_number" v-model="form.phone_number" type="text" class="mt-1 block w-full" required autocomplete="tel" />
-					<InputError class="mt-2" :message="form.errors.phone_number" />
-				</div>
+				<InputLabel for="phone_number" value="Phone Number" />
+				<TextInput id="phone_number" v-model="form.phone_number" type="text" class="mt-1 block w-full" required autocomplete="tel" />
+				<InputError class="mt-2" :message="form.errors.phone_number" />
+			</div>
 
-				<div class="mt-4">
-						<InputLabel for="purok_id" value="Purok" />
-						<select
-							id="purok_id"
-							v-model="form.purok_id"
-							class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-							required
-						>
-							<option value="">Select a Purok</option>
-							<option v-for="purok in puroks" :key="purok.id" :value="purok.id">
-								{{ purok.name }}
-							</option>
-						</select>
-						<InputError class="mt-2" :message="form.errors.purok_id" />
-					</div>
+			<div class="mt-4">
+				<InputLabel for="purok_id" value="Purok" />
+				<select
+					id="purok_id"
+					v-model="form.purok_id"
+					class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+					required
+				>
+					<option value="">Select a Purok</option>
+					<option v-for="purok in puroks" :key="purok.id" :value="purok.id">
+						{{ purok.name }}
+					</option>
+				</select>
+				<InputError class="mt-2" :message="form.errors.purok_id" />
 			</div>
 
 			<div class="mt-4">
 				<InputLabel for="email" value="Email" />
 				<TextInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required autocomplete="username" />
 				<InputError class="mt-2" :message="form.errors.email" />
+			</div>
+
+			<div class="mt-4">
+				<InputLabel for="role_id" value="Role" />
+				<select
+					id="role_id"
+					v-model="form.role_id"
+					class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+					required
+				>
+					<option value="">Select a Role</option>
+					<option v-for="role in roles" :key="role.id" :value="role.id">
+						{{ role.name }}
+					</option>
+				</select>
+				<InputError class="mt-2" :message="form.errors.role_id" />
 			</div>
 
 			<div class="mt-4">
@@ -131,34 +147,6 @@ const submit = () => {
 				<InputLabel for="password_confirmation" value="Confirm Password" />
 				<TextInput id="password_confirmation" v-model="form.password_confirmation" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
 				<InputError class="mt-2" :message="form.errors.password_confirmation" />
-			</div>
-
-			<div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
-				<InputLabel for="terms">
-					<div class="flex items-center">
-						<Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
-
-						<div class="ms-2">
-							I agree to the
-							<a
-								target="_blank"
-								:href="route('terms.show')"
-								class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-							>
-								Terms of Service
-							</a>
-							and
-							<a
-								target="_blank"
-								:href="route('policy.show')"
-								class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-							>
-								Privacy Policy
-							</a>
-						</div>
-					</div>
-					<InputError class="mt-2" :message="form.errors.terms" />
-				</InputLabel>
 			</div>
 
 			<div class="flex items-center justify-end mt-4">
