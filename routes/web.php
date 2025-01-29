@@ -8,7 +8,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// AJ
 Route::get('/', function () {
     return Inertia::render('Auth/Login');
 });
@@ -22,8 +21,5 @@ Route::middleware([
     Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments');
     Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
 });
-
-Route::get('/test', [TestController::class, 'index']);
-Route::post('/test', [TestController::class, 'store']);
 
 Route::get('/register', [UserController::class, 'create'])->name('register');

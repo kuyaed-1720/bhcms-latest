@@ -47,6 +47,7 @@ const submit = () => {
 </script>
 
 <template>
+
 	<Head title="Register" />
 
 	<AuthenticationCard>
@@ -57,31 +58,36 @@ const submit = () => {
 		<form @submit.prevent="submit" class="grid grid-cols-2 gap-x-2">
 			<div class="mt-4">
 				<InputLabel for="first_name" value="First Name" />
-				<TextInput id="first_name" v-model="form.first_name" type="text" class="mt-1 block w-full" required autofocus autocomplete="name" />
+				<TextInput id="first_name" v-model="form.first_name" type="text" class="mt-1 block w-full" required
+					autofocus autocomplete="name" />
 				<InputError class="mt-2" :message="form.errors.first_name" />
 			</div>
 
 			<div class="mt-4">
 				<InputLabel for="middle_name" value="Middle Name" />
-				<TextInput id="middle_name" v-model="form.middle_name" type="text" class="mt-1 block w-full" required autocomplete="name" />
+				<TextInput id="middle_name" v-model="form.middle_name" type="text" class="mt-1 block w-full" required
+					autocomplete="name" />
 				<InputError class="mt-2" :message="form.errors.middle_name" />
 			</div>
 
 			<div class="mt-4">
 				<InputLabel for="last_name" value="Last Name" />
-				<TextInput id="last_name" v-model="form.last_name" type="text" class="mt-1 block w-full" required autocomplete="name" />
+				<TextInput id="last_name" v-model="form.last_name" type="text" class="mt-1 block w-full" required
+					autocomplete="name" />
 				<InputError class="mt-2" :message="form.errors.last_name" />
 			</div>
 
 			<div class="mt-4">
 				<InputLabel for="extension_name" value="Extension Name (optional)" />
-				<TextInput id="extension_name" v-model="form.extension_name" type="text" class="mt-1 block w-full" autocomplete="name" />
+				<TextInput id="extension_name" v-model="form.extension_name" type="text" class="mt-1 block w-full"
+					autocomplete="name" />
 				<InputError class="mt-2" :message="form.errors.extension_name" />
 			</div>
 
 			<div class="mt-4">
 				<InputLabel for="birthday" value="Birthday" />
-				<DateInput id="birthday" v-model="form.birthday" @change="calculateAge" type="date" class="mt-1 block w-full" required />
+				<DateInput id="birthday" v-model="form.birthday" @change="calculateAge" type="date"
+					class="mt-1 block w-full" required />
 				<InputError class="mt-2" :message="form.errors.birthday" />
 			</div>
 
@@ -94,42 +100,43 @@ const submit = () => {
 			<div class="mt-4">
 				<div class="mt-4">
 					<InputLabel for="phone_number" value="Phone Number" />
-					<TextInput id="phone_number" v-model="form.phone_number" type="text" class="mt-1 block w-full" required autocomplete="tel" />
+					<TextInput id="phone_number" v-model="form.phone_number" type="text" class="mt-1 block w-full"
+						required autocomplete="tel" />
 					<InputError class="mt-2" :message="form.errors.phone_number" />
 				</div>
 
 				<div class="mt-4">
-						<InputLabel for="purok_id" value="Purok" />
-						<select
-							id="purok_id"
-							v-model="form.purok_id"
-							class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-							required
-						>
-							<option value="">Select a Purok</option>
-							<option v-for="purok in puroks" :key="purok.id" :value="purok.id">
-								{{ purok.name }}
-							</option>
-						</select>
-						<InputError class="mt-2" :message="form.errors.purok_id" />
-					</div>
+					<InputLabel for="purok_id" value="Purok" />
+					<select id="purok_id" v-model="form.purok_id"
+						class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+						required>
+						<option value="">Select a Purok</option>
+						<option v-for="purok in puroks" :key="purok.id" :value="purok.id">
+							{{ purok.name }}
+						</option>
+					</select>
+					<InputError class="mt-2" :message="form.errors.purok_id" />
+				</div>
 			</div>
 
 			<div class="mt-4">
 				<InputLabel for="email" value="Email" />
-				<TextInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required autocomplete="username" />
+				<TextInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required
+					autocomplete="username" />
 				<InputError class="mt-2" :message="form.errors.email" />
 			</div>
 
 			<div class="mt-4">
 				<InputLabel for="password" value="Password" />
-				<TextInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
+				<TextInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required
+					autocomplete="new-password" />
 				<InputError class="mt-2" :message="form.errors.password" />
 			</div>
 
 			<div class="mt-4">
 				<InputLabel for="password_confirmation" value="Confirm Password" />
-				<TextInput id="password_confirmation" v-model="form.password_confirmation" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
+				<TextInput id="password_confirmation" v-model="form.password_confirmation" type="password"
+					class="mt-1 block w-full" required autocomplete="new-password" />
 				<InputError class="mt-2" :message="form.errors.password_confirmation" />
 			</div>
 
@@ -140,19 +147,13 @@ const submit = () => {
 
 						<div class="ms-2">
 							I agree to the
-							<a
-								target="_blank"
-								:href="route('terms.show')"
-								class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-							>
+							<a target="_blank" :href="route('terms.show')"
+								class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
 								Terms of Service
 							</a>
 							and
-							<a
-								target="_blank"
-								:href="route('policy.show')"
-								class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-							>
+							<a target="_blank" :href="route('policy.show')"
+								class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
 								Privacy Policy
 							</a>
 						</div>
@@ -162,14 +163,14 @@ const submit = () => {
 			</div>
 
 			<div class="flex items-center justify-end mt-4">
-				<Link
-					:href="route('login')"
-					class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-				>
-					Already registered?
+				<Link :href="route('login')"
+					class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+				Already registered?
 				</Link>
 
-				<PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Register</PrimaryButton>
+				<PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+					Register
+				</PrimaryButton>
 			</div>
 		</form>
 	</AuthenticationCard>
