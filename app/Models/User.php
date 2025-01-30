@@ -9,10 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use App\Observers\UserObserver;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
-#[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -30,17 +27,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'role_id',
-        'first_name',
-        'middle_name',
-        'last_name',
-        'extension_name',
-        'birthday',
-        'age',
-        'phone_number',
-        // 'province',
-        // 'city',
-        // 'barangay',
         'purok_id',
+        'fname',
+        'mname',
+        'lname',
+        'suffix',
+        'birthdate',
+        'age',
+        'sex',
+        'contact_no',
         'email',
         'password',
     ];

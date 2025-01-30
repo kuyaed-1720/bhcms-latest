@@ -100,47 +100,24 @@ const submit = () => {
 			</div>
 
 			<div class="mt-4">
-<<<<<<< HEAD
-				<div class="mt-4">
-					<InputLabel for="phone_number" value="Phone Number" />
-					<TextInput id="phone_number" v-model="form.phone_number" type="text" class="mt-1 block w-full"
-						required autocomplete="tel" />
-					<InputError class="mt-2" :message="form.errors.phone_number" />
-				</div>
-
-				<div class="mt-4">
-					<InputLabel for="purok_id" value="Purok" />
-					<select id="purok_id" v-model="form.purok_id"
-						class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-						required>
-						<option value="">Select a Purok</option>
-						<option v-for="purok in puroks" :key="purok.id" :value="purok.id">
-							{{ purok.name }}
-						</option>
-					</select>
-					<InputError class="mt-2" :message="form.errors.purok_id" />
-				</div>
-=======
 				<InputLabel for="phone_number" value="Phone Number" />
-				<TextInput id="phone_number" v-model="form.phone_number" type="text" class="mt-1 block w-full" required autocomplete="tel" />
+				<TextInput id="phone_number" v-model="form.phone_number" type="text" class="mt-1 block w-full" required
+					autocomplete="tel" />
 				<InputError class="mt-2" :message="form.errors.phone_number" />
 			</div>
 
+
 			<div class="mt-4">
 				<InputLabel for="purok_id" value="Purok" />
-				<select
-					id="purok_id"
-					v-model="form.purok_id"
+				<select id="purok_id" v-model="form.purok_id"
 					class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-					required
-				>
-					<option value="">Select a Purok</option>
+					required>
+					<option value="" disabled>Select a Purok</option>
 					<option v-for="purok in puroks" :key="purok.id" :value="purok.id">
 						{{ purok.name }}
 					</option>
 				</select>
 				<InputError class="mt-2" :message="form.errors.purok_id" />
->>>>>>> refs/remotes/origin/main
 			</div>
 
 			<div class="mt-4">
@@ -152,16 +129,16 @@ const submit = () => {
 
 			<div class="mt-4">
 				<InputLabel for="role_id" value="Role" />
-				<select
-					id="role_id"
-					v-model="form.role_id"
+				<select id="role_id" v-model="form.role_id"
 					class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-					required
-				>
-					<option value="">Select a Role</option>
-					<option v-for="role in roles" :key="role.id" :value="role.id">
-						{{ role.name }}
-					</option>
+					required>
+					<option value="" disabled>Select a Role</option>
+					<!-- <option value="1">Admin</option> -->
+					<option value="2">Health Worker</option>
+					<option value="3">Resident</option>
+					<!-- <option v-for="role in roles" :key="role.id" :value="role.id"> -->
+					<!-- {{ role.name }} -->
+					<!-- </option> -->
 				</select>
 				<InputError class="mt-2" :message="form.errors.role_id" />
 			</div>
@@ -180,31 +157,6 @@ const submit = () => {
 				<InputError class="mt-2" :message="form.errors.password_confirmation" />
 			</div>
 
-<<<<<<< HEAD
-			<div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
-				<InputLabel for="terms">
-					<div class="flex items-center">
-						<Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
-
-						<div class="ms-2">
-							I agree to the
-							<a target="_blank" :href="route('terms.show')"
-								class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-								Terms of Service
-							</a>
-							and
-							<a target="_blank" :href="route('policy.show')"
-								class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-								Privacy Policy
-							</a>
-						</div>
-					</div>
-					<InputError class="mt-2" :message="form.errors.terms" />
-				</InputLabel>
-			</div>
-
-=======
->>>>>>> refs/remotes/origin/main
 			<div class="flex items-center justify-end mt-4">
 				<Link :href="route('login')"
 					class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">

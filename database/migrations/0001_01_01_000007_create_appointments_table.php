@@ -13,15 +13,11 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained('patients');
-            $table->foreignId('health_worker_id')->constrained('health_workers');
-            $table->string('title')->nullable();
-            $table->string('description')->nullable();
-            $table->date('appointment_date')->nullable();
-            $table->time('appointment_time')->nullable();
-            $table->enum('status', ['pending', 'confirmed', 'completed', 'cancelled'])->default('pending');
-            $table->timestamp('completed_at')->nullable();
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('purpose');
+            $table->date('appointment_date');
+            $table->enum('status', ['pending', 'finished', 'cancelled', 'rescheduled'])->default('pending');
+            s$table->timestamps();
         });
     }
 

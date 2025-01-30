@@ -13,12 +13,26 @@ return new class extends Migration
     {
         Schema::create('health_records', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained('patients');
-            $table->foreignId('health_worker_id')->constrained('health_workers');
-            $table->string('medications')->nullable();
-            $table->string('prescriptions')->nullable();
-            $table->string('diagnosis')->nullable();
-            $table->string('notes')->nullable();
+            $table->foreignId('user_id')->constrained('users');
+            $table->boolean('ph_member')->default(false);
+            $table->string('philhealth_no')->nullable();
+            $table->integer('height')->nullable();
+            $table->integer('weight')->nullable();
+            $table->integer('bmi')->nullable();
+            $table->integer('waist_circumference')->nullable();
+            $table->enum('with_hpn', ['none', 'old', 'new'])->default('none');
+            $table->enum('with_dm', ['none', 'old', 'new'])->default('none');
+            $table->boolean('pregnant')->default(false);
+            $table->date('lmp')->nullable();
+            $table->string('pregnancy_test')->nullable();
+            $table->string('gp')->nullable();
+            $table->enum('smoking', ['never', 'current', 'passive', 'recently_stopped', 'long_stopped'])->default('never');
+            $table->boolean('alcohol_intake')->default(false);
+            $table->boolean('had_five_drinks')->default(false);
+            $table->text('chief_complaint')->nunllable();
+            $table->text('diagnosis')->nullable();
+            $table->string('management')->nullable();
+            $table->date('record_date');
             $table->timestamps();
         });
     }

@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->constrained('roles');
-            $table->string('first_name');
-            $table->string('middle_name');
-            $table->string('last_name');
-            $table->string('extension_name')->nullable();
-            $table->date('birthday');
-            $table->integer('age');
-            $table->string('phone_number');
             $table->foreignId('purok_id')->constrained('puroks');
+            $table->string('fname');
+            $table->string('mname');
+            $table->string('lname');
+            $table->string('suffix');
+            $table->date('birthdate');
+            $table->enum('sex', ['male','female']);
+            $table->string('contact_no');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
