@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('father');
             $table->date('birthdate');
             $table->string('birthplace');
-            $table->int('age');
+            $table->integer('age');
             $table->enum('sex', ['male', 'female']);
             $table->string('address');
             $table->integer('birth_height');

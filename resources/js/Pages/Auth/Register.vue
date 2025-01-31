@@ -9,21 +9,23 @@ import TextInput from '@/Components/TextInput.vue';
 import DateInput from '@/Components/DateInput.vue';
 import NumberInput from '@/Components/NumberInput.vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { ref, watch } from 'vue';
 
 const { props } = usePage();
 const puroks = props.puroks;
 const roles = props.roles;
 
 const form = useForm({
-	first_name: '',
-	middle_name: '',
-	last_name: '',
-	extension_name: '',
-	birthday: new Date(),
-	age: '',
-	phone_number: '+63',
-	purok_id: null,
 	role_id: null,
+	purok_id: null,
+	fname: '',
+	mname: '',
+	lname: '',
+	suffix: '',
+	birthdate: '',
+	age: '',
+	sex: '',
+	contact_no: '',
 	email: '',
 	password: '',
 	password_confirmation: '',
@@ -31,15 +33,18 @@ const form = useForm({
 });
 
 const calculateAge = () => {
-	const birthday = new Date(form.birthday);
+	if (!form.birthdate) return;
+	const birthdate = new Date(form.birthdate);
 	const today = new Date();
-	let age = today.getFullYear() - birthday.getFullYear();
-	const monthDifference = today.getMonth() - birthday.getMonth();
-	if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthday.getDate())) {
+	let age = today.getFullYear() - birthdate.getFullYear();
+	const monthDifference = today.getMonth() - birthdate.getMonth();
+	if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthdate.getDate())) {
 		age--;
 	}
 	form.age = age;
 };
+
+watch(() => form.birthdate, calculateAge);
 
 const submit = () => {
 	form.post(route('register'), {
@@ -59,38 +64,37 @@ const submit = () => {
 
 		<form @submit.prevent="submit" class="grid grid-cols-2 gap-x-2">
 			<div class="mt-4">
-				<InputLabel for="first_name" value="First Name" />
-				<TextInput id="first_name" v-model="form.first_name" type="text" class="mt-1 block w-full" required
-					autofocus autocomplete="name" />
-				<InputError class="mt-2" :message="form.errors.first_name" />
-			</div>
-
-			<div class="mt-4">
-				<InputLabel for="middle_name" value="Middle Name" />
-				<TextInput id="middle_name" v-model="form.middle_name" type="text" class="mt-1 block w-full" required
+				<InputLabel for="fname" value="First Name" />
+				<TextInput id="fname" v-model="form.fname" type="text" class="mt-1 block w-full" required autofocus
 					autocomplete="name" />
-				<InputError class="mt-2" :message="form.errors.middle_name" />
+				<InputError class="mt-2" :message="form.errors.fname" />
 			</div>
 
 			<div class="mt-4">
-				<InputLabel for="last_name" value="Last Name" />
-				<TextInput id="last_name" v-model="form.last_name" type="text" class="mt-1 block w-full" required
+				<InputLabel for="mname" value="Middle Name" />
+				<TextInput id="mname" v-model="form.mname" type="text" class="mt-1 block w-full" required
 					autocomplete="name" />
-				<InputError class="mt-2" :message="form.errors.last_name" />
+				<InputError class="mt-2" :message="form.errors.mname" />
 			</div>
 
 			<div class="mt-4">
-				<InputLabel for="extension_name" value="Extension Name (optional)" />
-				<TextInput id="extension_name" v-model="form.extension_name" type="text" class="mt-1 block w-full"
+				<InputLabel for="lname" value="Last Name" />
+				<TextInput id="lname" v-model="form.lname" type="text" class="mt-1 block w-full" required
 					autocomplete="name" />
-				<InputError class="mt-2" :message="form.errors.extension_name" />
+				<InputError class="mt-2" :message="form.errors.lname" />
 			</div>
 
 			<div class="mt-4">
-				<InputLabel for="birthday" value="Birthday" />
-				<DateInput id="birthday" v-model="form.birthday" @change="calculateAge" type="date"
-					class="mt-1 block w-full" required />
-				<InputError class="mt-2" :message="form.errors.birthday" />
+				<InputLabel for="suffix" value="Suffix (optional)" />
+				<TextInput id="suffix" v-model="form.suffix" type="text" class="mt-1 block w-full"
+					autocomplete="name" />
+				<InputError class="mt-2" :message="form.errors.suffix" />
+			</div>
+
+			<div class="mt-4">
+				<InputLabel for="birthdate" value="Birthdate" />
+				<DateInput id="birthdate" v-model="form.birthdate" type="date" class="mt-1 block w-full" required />
+				<InputError class="mt-2" :message="form.errors.birthdate" />
 			</div>
 
 			<div class="mt-4">
@@ -100,10 +104,22 @@ const submit = () => {
 			</div>
 
 			<div class="mt-4">
-				<InputLabel for="phone_number" value="Phone Number" />
-				<TextInput id="phone_number" v-model="form.phone_number" type="text" class="mt-1 block w-full" required
+				<InputLabel for="sex" value="Sex" />
+				<select id="sex" v-model="form.sex"
+					class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+					required>
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+
+				</select>
+				<InputError class="mt-2" :message="form.errors.sex" />
+			</div>
+
+			<div class="mt-4">
+				<InputLabel for="contact_no" value="Phone Number" />
+				<TextInput id="contact_no" v-model="form.contact_no" type="text" class="mt-1 block w-full" required
 					autocomplete="tel" />
-				<InputError class="mt-2" :message="form.errors.phone_number" />
+				<InputError class="mt-2" :message="form.errors.contact_no" />
 			</div>
 
 
@@ -114,7 +130,7 @@ const submit = () => {
 					required>
 					<option value="" disabled>Select a Purok</option>
 					<option v-for="purok in puroks" :key="purok.id" :value="purok.id">
-						{{ purok.name }}
+						{{ purok.purok_name }}
 					</option>
 				</select>
 				<InputError class="mt-2" :message="form.errors.purok_id" />
@@ -134,7 +150,7 @@ const submit = () => {
 					required>
 					<option value="" disabled>Select a Role</option>
 					<!-- <option value="1">Admin</option> -->
-					<option value="2">Health Worker</option>
+					<option value="2">Health Worker (BHW)</option>
 					<option value="3">Resident</option>
 					<!-- <option v-for="role in roles" :key="role.id" :value="role.id"> -->
 					<!-- {{ role.name }} -->

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->integer('weight')->nullable();
             $table->integer('height')->nullable();
-            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('gender', ['male', 'female'])->nullable();
             $table->timestamp('last_activity')->nullable();
             $table->timestamps();
         });

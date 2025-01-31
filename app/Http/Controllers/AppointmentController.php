@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
-use App\Models\HealthWorker;
-use App\Models\Patient;
+// use App\Models\HealthWorker;
+// use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 

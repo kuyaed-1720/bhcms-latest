@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('purpose');
             $table->date('appointment_date');
             $table->enum('status', ['pending', 'finished', 'cancelled', 'rescheduled'])->default('pending');
-            s$table->timestamps();
+            $table->timestamps();
         });
     }
 

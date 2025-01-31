@@ -17,6 +17,12 @@ return new class extends Migration
             $table->enum('role_name', ['admin', 'bhw', 'resident']);
             $table->timestamps();
         });
+        
+        Role::insert([
+            ['id' => 1, 'role_name' => 'admin'],
+            ['id' => 2, 'role_name' => 'bhw'],
+            ['id' => 3, 'role_name' => 'resident'],
+        ]);
     }
 
     /**
