@@ -23,25 +23,25 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $query = Appointment::with(['patient.user', 'healthWorker.user']);
+        $query = Appointment::paginate(5);
 
-        if ($user->role_id == 2) {
-            $healthWorker = $user->healthWorker;
-            if ($healthWorker) {
-                $query->where('health_worker_id', $healthWorker->id);
-            }
-        } elseif ($user->role_id == 3) {
-            $patient = $user->patient;
-            if ($patient) {
-                $query->where('patient_id', $patient->id);
-            }
-        }
+        // if ($user->role_id == 2) {
+        //     $healthWorker = $user->healthWorker;
+        //     if ($healthWorker) {
+        //         $query->where('health_worker_id', $healthWorker->id);
+        //     }
+        // } elseif ($user->role_id == 3) {
+        //     $patient = $user->patient;
+        //     if ($patient) {
+        //         $query->where('patient_id', $patient->id);
+        //     }
+        // }
         
         if ($request->has('status') && $request->status !== null) {
             $query->where('status', $request->input('status'));
         }
 
-        $appointments = $query->paginate(5);
+        $appointments = $query;
 
         // Get the items (appointments) from the current page
         $appointmentsData = $appointments->items(); 
@@ -50,12 +50,10 @@ class AppointmentController extends Controller
         $appointmentsData = collect($appointmentsData)->map(function ($appointment) {
             return [
                 'id' => $appointment->id,
-                'title' => $appointment->title,
-                'description' => $appointment->description,
+                'purpose' => $appointment->purpose,
                 'appointment_date' => $appointment->appointment_date,
-                'appointment_time' => $appointment->appointment_time,
-                'patient_name' => $appointment->patient->user->first_name . " " . $appointment->patient->user->last_name,
-                'health_worker_name' => $appointment->healthWorker->user->first_name . " " . $appointment->healthWorker->user->last_name,
+                // 'patient_name' => $appointment->patient->user->first_name . " " . $appointment->patient->user->last_name,
+                // 'health_worker_name' => $appointment->healthWorker->user->first_name . " " . $appointment->healthWorker->user->last_name,
                 'status' => $appointment->status,
                 'total' => $appointment->count(),
             ];
@@ -76,15 +74,34 @@ class AppointmentController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $users = User::all();
-        $healthworkers = HealthWorker::all();
-        $patients = Patient::all();
+        // $users = User::all();
+        // $healthworkers = $users->with('role_id', 2);
+        $users = User::where('role_id', 2);
 
         return Inertia::render('Appointments/Create', [
             'user' => $user,
-            'health_workers' => $healthworkers,
-            'patients' => $patients,
+            // 'health_workers' => $healthworkers,
+            // 'patients' => $patients,
             'users' => $users
         ]);
+    }
+
+    public function store (Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'purpose' => 'required|string|max:255',
+            'appointment_date' => 'required|date|after_or_equal:today',
+            // 'status' => 'required|in:pending,finished,cancelled',
+        ]);
+
+        $appointment = Appointment::create([
+            'user_id' => $request->user_id,
+            'purpose'=> $request->purpose,
+            'appointment_date' => $request->appointment_date,
+            'status' => 'pending',
+        ]);
+
+        return redirect('/appointments');
     }
 }

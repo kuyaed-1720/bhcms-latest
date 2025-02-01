@@ -20,6 +20,7 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments');
     Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
+    Route::post('/appointments/create', [AppointmentController::class, 'store'])->name('appointments.store');
 });
 
 Route::get('/register', [UserController::class, 'create'])->name('register');
