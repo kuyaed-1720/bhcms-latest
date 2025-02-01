@@ -33,7 +33,6 @@ const form = useForm({
 });
 
 const calculateAge = () => {
-	if (!form.birthdate) return;
 	const birthdate = new Date(form.birthdate);
 	const today = new Date();
 	let age = today.getFullYear() - birthdate.getFullYear();
@@ -44,7 +43,7 @@ const calculateAge = () => {
 	form.age = age;
 };
 
-watch(() => form.birthdate, calculateAge);
+// watch(() => form.birthdate, calculateAge);
 
 const submit = () => {
 	form.post(route('register'), {
@@ -93,7 +92,8 @@ const submit = () => {
 
 			<div class="mt-4">
 				<InputLabel for="birthdate" value="Birthdate" />
-				<DateInput id="birthdate" v-model="form.birthdate" type="date" class="mt-1 block w-full" required />
+				<DateInput id="birthdate" v-model="form.birthdate" type="date" @change="calculateAge"
+					class="mt-1 block w-full" required />
 				<InputError class="mt-2" :message="form.errors.birthdate" />
 			</div>
 

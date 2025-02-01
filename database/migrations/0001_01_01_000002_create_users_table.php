@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('fname');
             $table->string('mname');
             $table->string('lname');
-            $table->string('suffix');
+            $table->string('suffix')->nullable();
             $table->date('birthdate');
+            $table->integer('age');
             $table->enum('sex', ['male','female']);
             $table->string('contact_no');
             $table->string('email')->unique();
