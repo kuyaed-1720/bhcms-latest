@@ -23,20 +23,8 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $query = Appointment::paginate(5);
+        $query = Appointment::with('user')->paginate(5);
 
-        // if ($user->role_id == 2) {
-        //     $healthWorker = $user->healthWorker;
-        //     if ($healthWorker) {
-        //         $query->where('health_worker_id', $healthWorker->id);
-        //     }
-        // } elseif ($user->role_id == 3) {
-        //     $patient = $user->patient;
-        //     if ($patient) {
-        //         $query->where('patient_id', $patient->id);
-        //     }
-        // }
-        
         if ($request->has('status') && $request->status !== null) {
             $query->where('status', $request->input('status'));
         }
@@ -52,7 +40,7 @@ class AppointmentController extends Controller
                 'id' => $appointment->id,
                 'purpose' => $appointment->purpose,
                 'appointment_date' => $appointment->appointment_date,
-                // 'patient_name' => $appointment->patient->user->first_name . " " . $appointment->patient->user->last_name,
+                'patient_name' => $appointment->user->fname . " " . $appointment->user->lname,
                 // 'health_worker_name' => $appointment->healthWorker->user->first_name . " " . $appointment->healthWorker->user->last_name,
                 'status' => $appointment->status,
                 'total' => $appointment->count(),
@@ -76,7 +64,7 @@ class AppointmentController extends Controller
         $user = Auth::user();
         // $users = User::all();
         // $healthworkers = $users->with('role_id', 2);
-        $users = User::where('role_id', 2);
+        $users = User::where('role_id', 2)->get();
 
         return Inertia::render('Appointments/Create', [
             'user' => $user,
@@ -89,7 +77,7 @@ class AppointmentController extends Controller
     public function store (Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required',
             'purpose' => 'required|string|max:255',
             'appointment_date' => 'required|date|after_or_equal:today',
             // 'status' => 'required|in:pending,finished,cancelled',
@@ -103,5 +91,39 @@ class AppointmentController extends Controller
         ]);
 
         return redirect('/appointments');
+    }
+
+    public function edit (Appointment $appointment)
+    {
+        return Inertia::render('Appointments/Edit', [
+            'appointment' => $appointment
+        ]);
+    }
+
+    public function update(Request $request, Appointment $appointment)
+    {
+        $request->validate([
+            'purpose' => 'required|string|max:255',
+            'appointment_date' => 'required|date|after_or_equal:today',
+            'status' => 'required|in:pending,finished,cancelled',
+        ]);
+
+        $appointment->update($request->all());
+
+        return redirect()->route('appointments')->with('success', 'Appointment successfully edited!');
+    }
+
+    public function cancel(Appointment $appointment)
+    {
+        $appointment->update(['status' => 'cancelled']);
+
+        return redirect()->back()->with('success', 'Appointment cancelled!');
+    }
+
+    public function finish(Appointment $appointment)
+    {
+        $appointment->update(['status' => 'finished']);
+
+        return redirect()->back()->with('success', 'Appointment finished!');
     }
 }

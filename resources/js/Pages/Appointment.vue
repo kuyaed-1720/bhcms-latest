@@ -91,8 +91,8 @@ const goToPage = (page) => {
 				<thead
 					class="bg-gray-900 dark:bg-white border-b border-gray-900 dark:border-gray-300 text-gray-200 dark:text-gray-900">
 					<tr>
-						<!-- <th class="p-4 w-36 text-sm font-normal leading-none" v-if="user.role_id !== 3">PATIENT</th>
-						<th class="p-4 w-36 text-sm font-normal leading-none" v-if="user.role_id !== 2">BHW</th> -->
+						<th class="p-4 w-36 text-sm font-normal leading-none" v-if="user.role_id !== 3">RESIDENT</th>
+						<!-- <th class="p-4 w-36 text-sm font-normal leading-none" v-if="user.role_id !== 2">BHW</th> -->
 						<th class="p-4 w-48 text-sm font-normal leading-none">PURPOSE</th>
 						<th class="p-4 w-36 text-sm font-normal leading-none">DATE</th>
 						<th class="p-4 w-24 text-sm font-normal leading-none" v-if="!filters.status">STATUS</th>
@@ -102,15 +102,14 @@ const goToPage = (page) => {
 				</thead>
 				<tbody>
 					<tr class="hover:bg-gray-300" v-for="appointment in appointments" :key="appointment.id">
-						<!-- <td class="p-4 text-sm text-gray-900 dark:text-gray-700" v-if="user.role_id !== 3">{{ appointment.patient_name }}</td>
-						<td class="p-4 text-sm text-gray-900 dark:text-gray-700" v-if="user.role_id !== 2">{{ appointment.health_worker_name }}</td> -->
+						<td class="p-4 text-sm text-gray-900 dark:text-gray-700" v-if="user.role_id !== 3">{{ appointment.patient_name }}</td>
+						<!-- <td class="p-4 text-sm text-gray-900 dark:text-gray-700" v-if="user.role_id !== 2">{{ appointment.health_worker_name }}</td> -->
 						<!-- <td class="p-4 text-sm text-gray-900 dark:text-gray-700">{{ appointment.title }}</td> -->
 						<td class="p-4 text-sm text-gray-900 dark:text-gray-700 max-w-[30%]">
 							<div class="h-16 overflow-auto text-ellipsis">
 								{{ appointment.purpose }}
 							</div>
 						</td>
-						<!-- Limited width -->
 						<td class="p-4 text-sm text-gray-900 dark:text-gray-700">{{ appointment.appointment_date }}</td>
 						<td class="p-4 text-sm text-gray-900 dark:text-gray-700" v-if="!filters.status">{{
 							appointment.status }}

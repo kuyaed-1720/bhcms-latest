@@ -6,8 +6,10 @@ import { usePage } from '@inertiajs/vue3';
 
 // Access props passed from the Laravel controller
 const { props } = usePage();
+// const health_workers = props.health_workers;
 const user = props.user;
 const users = props.users;
+// const patients = props.patients;
 const role_id = props.user.role_id;
 
 // Initialize the form object
@@ -15,12 +17,17 @@ const form = useForm({
 	user_id: '',
 	purpose: '',
 	appointment_date: '',
+	// appointment_time: '',
+	// health_worker_id: '',
+	// patient_id: '',
 });
 
 if (role_id === 3) {
 	form.user_id = props.user.id;
-} 
+}
 
+// Dynamically determine availability
+// const canSelectHealthWorker = computed(() => role_id !== 2);
 const canSelectPatient = computed(() => role_id !== 3);
 </script>
 
@@ -59,8 +66,8 @@ const canSelectPatient = computed(() => role_id !== 3);
 						<select id="user_id" v-model="form.user_id" required
 							class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-300 dark:bg-gray-700">
 							<option value="" disabled>Select a patient</option>
-							<option v-for="patient in users" :key="patient.id" :value="patient.id">
-								{{ patient.fname + ' ' + patient.mname + ' ' + patient.lname + ' ' }}
+							<option v-for="patient in users" :key="patient.id" :value="patient.fname">
+								{{ patient.id }}
 							</option>
 						</select>
 					</div>

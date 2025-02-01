@@ -78,7 +78,7 @@ class User extends Authenticatable
     // A user can have many appointments as a patient
     public function appointments()
     {
-        return $this->hasMany(Appointment::class, 'patient_id');
+        return $this->hasMany(Appointment::class);
     }
 
     // A user can also be a health worker with many appointments
@@ -100,16 +100,16 @@ class User extends Authenticatable
     }
 
     // A user may be a patient (through Patient model)
-    public function patient()
-    {
-        return $this->hasOne(Patient::class);
-    }
+    // public function patient()
+    // {
+    //     return $this->hasOne(Patient::class);
+    // }
 
     // A user may be a health worker (through HealthWorker model)
-    public function healthWorker()
-    {
-        return $this->hasOne(HealthWorker::class);
-    }
+    // public function healthWorker()
+    // {
+    //     return $this->hasOne(HealthWorker::class);
+    // }
     
     public function isAdmin()
     {

@@ -21,6 +21,10 @@ Route::middleware([
     Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments');
     Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
     Route::post('/appointments/create', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::get('appointments/{appointment}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
+    Route::patch('appointments/{appointment}/cancel', [AppointmentController::class, 'cancel'])->name('appointments.cancel');
+    Route::patch('appointments/{appointment}/finish', [AppointmentController::class, 'finish'])->name('appointments.finish');
 });
 
 Route::get('/register', [UserController::class, 'create'])->name('register');
+// Route::post('/register', [UserController::class, 'store'])->name('user.store');
